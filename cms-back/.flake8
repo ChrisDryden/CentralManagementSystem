@@ -1,7 +1,7 @@
 [flake8]
 format = default
 show-source = false
-ignore = E501
+ignore = E501, N803
 exclude =
         .git,
         __pycache__,

@@ -5,31 +5,39 @@ steps:
   waitFor: ['-']
   args: ['build',
          '-t', 'gcr.io/$PROJECT_ID/cmsback:latest',
-         '-t', 'gcr.io/$PROJECT_ID/cmsback:1.0.0',
+         '-t', 'gcr.io/$PROJECT_ID/cmsback:1.0.1',
          '-t', 'gcr.io/$PROJECT_ID/cmsback:$COMMIT_SHA',
          './cms-back/']
-# - name: 'gcr.io/cloud-builders/docker'
-#   id: 'cms-back-latest-push'
-#   waitFor: ['cms-back']
-#   args: ['push', 'gcr.io/$PROJECT_ID/cmsback:latest']
-# - name: 'gcr.io/cloud-builders/docker'
-#   id: 'cms-back-version-push'
-#   waitFor: ['cms-back']
-#   args: ['push', 'gcr.io/$PROJECT_ID/cmsback:1.0.0']
-#cms-front
+- name: 'gcr.io/cloud-builders/docker'
+  id: 'cms-back-latest-push'
+  waitFor: ['cms-back']
+  args: ['push', 'gcr.io/$PROJECT_ID/cmsback:latest']
+- name: 'gcr.io/cloud-builders/docker'
+  id: 'cms-back-version-push'
+  waitFor: ['cms-back']
+  args: ['push', 'gcr.io/$PROJECT_ID/cmsback:1.0.1']
+- name: 'gcr.io/cloud-builders/docker'
+  id: 'cms-back-commit-push'
+  waitFor: ['cms-back']
+  args: ['push', 'gcr.io/$PROJECT_ID/cmsback:$COMMIT_SHA']
+# cms-front
 - name: 'gcr.io/cloud-builders/docker'
   id: 'cms-front'
   waitFor: ['-']
   args: ['build',
          '-t', 'gcr.io/$PROJECT_ID/cmsfront:latest',
-         '-t', 'gcr.io/$PROJECT_ID/cmsfront:1.0.0',
+         '-t', 'gcr.io/$PROJECT_ID/cmsfront:1.0.1',
          '-t', 'gcr.io/$PROJECT_ID/cmsfront:$COMMIT_SHA',
          './cms-front/']
-# - name: 'gcr.io/cloud-builders/docker'
-#   id: 'cms-front-latest-push'
-#   waitFor: ['cms-front']
-#   args: ['push', 'gcr.io/$PROJECT_ID/cmsfront:latest']
-# - name: 'gcr.io/cloud-builders/docker'
-#   id: 'cms-front-version-push'
-#   waitFor: ['cms-front']
-#   args: ['push', 'gcr.io/$PROJECT_ID/cmsfront:1.0.0']
+- name: 'gcr.io/cloud-builders/docker'
+  id: 'cms-front-latest-push'
+  waitFor: ['cms-front']
+  args: ['push', 'gcr.io/$PROJECT_ID/cmsfront:latest']
+- name: 'gcr.io/cloud-builders/docker'
+  id: 'cms-front-version-push'
+  waitFor: ['cms-front']
+  args: ['push', 'gcr.io/$PROJECT_ID/cmsfront:1.0.1']
+- name: 'gcr.io/cloud-builders/docker'
+  id: 'cms-front-commit-push'
+  waitFor: ['cms-front']
+  args: ['push', 'gcr.io/$PROJECT_ID/cmsfront:$COMMIT_SHA']
